@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "name": "Outdated dependency",
+        "severity": "medium",
+        "updatedAt": "2025-08-20T10:15:00Z"
+    },
+    {
+        "id": 2,
+        "name": "SQL injection risk",
+        "severity": "high",
+        "updatedAt": "2025-08-21T08:03:00Z"
+    },
+    {
+        "id": 3,
+        "name": "Weak TLS settings",
+        "severity": "low",
+        "updatedAt": "2025-08-22T12:45:00Z"
+    }
+]
