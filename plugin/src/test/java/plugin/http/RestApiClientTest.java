@@ -1,6 +1,8 @@
 package plugin.http;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -18,12 +20,12 @@ import org.junit.jupiter.api.Test;
 public class RestApiClientTest {
 
     @Test
-    void testGetIssues() throws Exception {
+    void testGetIssuesStatus200() throws Exception {
         // TODO: fix warnings about generic type inferring
-        
         String json = Files.readString(Paths.get("src/test/resources/issues.json"));
         HttpClient mockClient = mock(HttpClient.class);
         HttpResponse<String> mockResponse = mock(HttpResponse.class);
+        when(mockResponse.statusCode()).thenReturn(200);
         when(mockResponse.body()).thenReturn(json);
         when(mockClient.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class)))
                 .thenReturn(mockResponse);
@@ -48,6 +50,25 @@ public class RestApiClientTest {
         assertEquals("Weak TLS settings", issue3.name());
         assertEquals("low", issue3.severity());
         assertEquals("2025-08-22T12:45:00Z", issue3.updatedAt());
+    }
+    
+    @Test
+    void testGetIssuesNon200() throws Exception {
+    	// TODO: fix warnings about generic type inferring
+        HttpClient mockClient = mock(HttpClient.class);
+        HttpResponse<String> mockResponse = mock(HttpResponse.class);
+        when(mockResponse.statusCode()).thenReturn(500);
+        when(mockResponse.body()).thenReturn("Internal Server Error");
+        when(mockClient.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class)))
+                .thenReturn(mockResponse);
+        RestApiClient.setHttpClient(mockClient);
+
+        Exception exception = assertThrows(Exception.class, () -> {
+            RestApiClient.getIssues();
+        });
+        assertTrue(exception.getMessage().contains("Failed to fetch issues"));
+        assertTrue(exception.getMessage().contains("500"));
+        assertTrue(exception.getMessage().contains("Internal Server Error"));
     }
     
 }
