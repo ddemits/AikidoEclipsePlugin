@@ -1,18 +1,19 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Plugin
-Bundle-SymbolicName: plugin
+Bundle-SymbolicName: plugin;singleton:=true
 Bundle-Version: 0.0.1.SNAPSHOT
-Require-Bundle: org.eclipse.swt,
- org.eclipse.jface,
- org.eclipse.e4.core.di.annotations,
+Require-Bundle: org.eclipse.jface,
+ org.eclipse.e4.ui.model.workbench,
  org.eclipse.e4.ui.di,
- jakarta.inject.jakarta.inject-api,
  org.eclipse.e4.ui.services,
- jakarta.annotation-api
+ org.eclipse.e4.core.di.annotations
+Bundle-RequiredExecutionEnvironment: JavaSE-21
+Import-Package: jakarta.annotation;version="[2.1.0,3.0.0)",
+ jakarta.inject;version="[2.0.0,3.0.0)",
+ org.osgi.framework;version="[1.10.0,2.0.0)"
 Automatic-Module-Name: plugin
 Bundle-ClassPath: lib/jackson-annotations-2.20.jar,
  lib/jackson-core-2.20.0.jar,
  lib/jackson-databind-2.20.0.jar,
  .
-Bundle-RequiredExecutionEnvironment: JavaSE-21
