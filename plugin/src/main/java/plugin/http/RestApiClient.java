@@ -27,6 +27,10 @@ public class RestApiClient {
                 .GET()
                 .build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        int status = response.statusCode();
+        if (status != 200) {
+            throw new Exception("Failed to fetch issues: HTTP " + status + " - " + response.body());
+        }
         return OBJECT_MAPPER.readValue(response.body(), new TypeReference<List<Issue>>() {});
     }
 
