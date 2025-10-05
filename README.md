@@ -10,7 +10,7 @@ Eclipse plugin for the Aikido recruitment process.
 
 ## Development Setup
 
-** Mock Server **
+**Mock Server**
 
 Run the following command in the server folder:
 
@@ -18,7 +18,7 @@ Run the following command in the server folder:
     ./gradlew bootRun
 ```
 
-** Plugin **
+**Plugin**
 1. Import the `plugin` folder in Eclipse: **File > Open Projects from File System**.  
 2. Add all JARs from `/lib` and `/test-lib` to the project's **Java Build Path > Libraries**.  
 3. Right-click the project and select **Run As > Eclipse Application**.
